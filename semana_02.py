@@ -7,12 +7,19 @@ Es decir, el que era el primer elemento de la lista de entrada deberá ser el ú
 listaautos = ['corolla','sierrita','citroen','ram']
 def invertir_lista (listaautos):
     return listaautos [::-1]
-print(invertir_lista(listaautos))
+
 
 listacompu = ['HP','MAC','DELL','LENOVO']
 def invertir_lista (listacompu):
     return list (reversed(listacompu))
-print(invertir_lista(listacompu))
+
+
+#comentarios de clase sobre como se ejecutó:
+#el ::1, va bien. Sino for i in range (len(l))
+# res.append (l[-i-1]). Pensarlo mejor así (no con el reversed)
+#para agregar un elemento adelante de una lista [6]+l
+
+
 
 '''
 Ejercicio 2: Conjetura de Collatz
@@ -23,22 +30,23 @@ Lo evaluamos, si el número es par entonces lo dividimos entre 2. Si es impar, e
 Al resultado lo volvemos a evaluar y nuevamente aplicamos las operaciones correspondientes hasta que obtengamos un 1.
 Retornar la cantidad de pasos realizados
 '''
-#OPCIÓN 1 QUE PENSÉ INICIALMENTE
-cont=0
-numero= int (input( "ingrese un numero: "))
-while numero != 1:
-    if numero %2==0:
-        numero=numero/2
+# funciones recursivas: para resolverlo voy a usar algo mas chico, algo mas chico, y hasta que se hace tan chico que se resuelve. 
+#es como factorear. 
+#el factorial de 6: 6!, se calcula como 6*5*4*3*2*1
+# o tambien como 6!= 6. 5!........
+# def factorial (n):
+#    if n==1:
+#    resultado=1
+#    else: 
+#      resultado = n*factorial(n-1)
+# return resultado
+# ITERATIVA: 
+# resultado=1
+# while n>1 VER COMO ES FACTORIAL ITERATIVA
 
-    else:
-        numero=numero*3+1
-    cont=cont+1
-else:
-    print ("El proceso ha terminado")
-    print ("La Cantidad de pasos fueron de", cont)  
 
-#OPCIÓN 2 CON LA FUNCIÓN COLLATZ
-numero= int (input( "ingrese un numero: "))
+#OPCIÓN CON LA FUNCIÓN COLLATZ
+
 def collatz (nro):
     pasos=0
     while nro != 1:
@@ -48,8 +56,39 @@ def collatz (nro):
             nro=nro*3+1
         pasos=pasos+1
     return pasos
-print ("El número de pasos generados para llegar a nro=1 fue de", {collatz(numero)})
 
+
+#LA VERSION RECURSIVA COMO SERÍA:
+#ESTA ES LA MANERA RECURSIVA
+'''
+def collatz (n):
+    if n==1:
+        return 0
+    else:
+        if n%2==0:
+            n=n/2
+        else:
+            n=n*3+1
+        respuesta=collatz(n)
+        return 1+respuesta
+collatz(4)
+print(collatz(4))
+'''
+'''
+def collatz (n):
+    if n==1:
+        return 0
+    else:
+        if n%2==0:
+            n=n/2
+        else:
+            n=n*3+1
+        respuesta=collatz(n)
+        return 1+respuesta
+'''
+#
+#
+#
 '''
 Ejercicio 3: Diccionarios
 Dado un diccionario que dadas ciertas claves (que serán strings) tiene ciertas definiciones (lista de strings), dar dos funciones:
@@ -68,7 +107,6 @@ diccionario={
 def contar_definiciones(diccionario):
     return {clave: len(definiciones) for clave, definiciones in diccionario.items()}
     
-print (contar_definiciones(diccionario))
 
 def cantidad_de_claves_letra(diccionario,l):
     cont=0
@@ -76,7 +114,7 @@ def cantidad_de_claves_letra(diccionario,l):
         if clave.startswith(l):
             cont=cont+1
     return cont
-print ("La Cantidad de claves que empiezan con L son:  ", cantidad_de_claves_letra(diccionario,"l"))
+
 
 
 '''
@@ -93,19 +131,26 @@ def propagar(L):
     for i in range(1, len(fosforos)):
         if fosforos[i] == 0 and fosforos[i - 1] == 1:
             fosforos[i] = 1
-   
+    
+    for i in range (len (fosforos)-2,-1,-1):
+        if fosforos [i]==0 and fosforos [i+1] ==1:
+            fosforos[i]=1
+    
     return fosforos
-print(propagar(L))
+
 
 L= [0, 0, 0, 1, 0, 0]
 def propagar(L): 
     fosforos = L.copy()
     for i in range(1, len(fosforos)):
         if fosforos[i] == 0 and fosforos[i - 1] == 1:
-            fosforos[i] = 1    
-    return fosforos
-print(propagar(L))
+            fosforos[i] = 1  
 
+    for i in range (len(fosforos)-2,-1,-1):
+        if fosforos [i]==0 and fosforos [i+1] ==1:
+            fosforos [i]=1
+            
+    return fosforos
 
 
 
