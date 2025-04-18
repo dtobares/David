@@ -1,7 +1,7 @@
 '''
 Álbum con 860 figuritas.
 Cada figurita se imprime en cantidades iguales y se distribuye aleatoriamente.
-Cada paquete trae cinco figuritas...
+Cada paquete trae cinco figuritas......
 '''
 
 # CON FIGUS SUELTAS
