@@ -32,6 +32,7 @@ def comprar_figu(figus_total):
     return random.choice(figuritas)
 
 
+
 #Ejercicio 4: Cantidad de compras
 #Implementá la función cuantas_figus(figus_total) que, dado el tamaño del álbum (figus_total), 
 #genere un álbum nuevo, simule su llenado y devuelva la cantidad de figuritas que se debieron 
