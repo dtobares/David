@@ -1,0 +1,1 @@
+El desarrollo es correcto dentro del nivel de avance, salvo porque los n mas altos no son correctos. No están incluídos el informe y la implementación de código para el ejercicio 5.
