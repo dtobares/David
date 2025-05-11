@@ -114,20 +114,158 @@ def altura_promedio (nombre_archivo,nombre_parque, especie_n):
 
 #el promedio de altura de jacaranda en parque IRLANDA, es de 13.48 metros. 
 
+# Ejercicio 5:
+#Probar el código creado y definir las funciones extra necesarias para decidir:
+
+#El/los parques con más cantidad de árboles.
+#El/los parques con los árboles más altos en promedio.
+#El/los parques con más variedad de especies.
+#La especie que más ejemplares tiene en la ciudad.
+#La razón entre especies exóticas y autóctonas.
 
 
+#El/los parques con más cantidad de árboles.
+def parques_con_mas_arboles(nombre_archivo):
+    
+    conteo_parques = {}
+
+    
+    with open(nombre_archivo, encoding='utf-8') as f:
+        lector = csv.DictReader(f)
+
+        for fila in lector:
+            parque = fila['espacio_ve']  
+
+            if parque in conteo_parques:
+                conteo_parques[parque] += 1
+            else:
+                
+                conteo_parques[parque] = 1
+
+    maximo = 0
+    for cantidad in conteo_parques.values():
+        if cantidad > maximo:
+            maximo = cantidad
+
+    
+    parques_maximos = []
+    for parque, cantidad in conteo_parques.items():
+        if cantidad == maximo:
+            parques_maximos.append(parque)
+
+    return parques_maximos, maximo
 
 
+#El/los parques con los árboles más altos en promedio.
+def parque_altura_promedio(nombre_archivo):
+    suma_alturas = {}
+    cantidad_arboles = {}
+
+    with open(nombre_archivo, encoding='utf-8') as f:
+        lector = csv.DictReader(f)
+        for fila in lector:
+            parque = fila['espacio_ve']
+            altura = float(fila['altura_tot'])
+
+            
+            if parque in suma_alturas:
+                suma_alturas[parque] += altura
+                cantidad_arboles[parque] += 1
+            else:
+                suma_alturas[parque] = altura
+                cantidad_arboles[parque] = 1
+
+    
+    promedios = {}
+    for parque in suma_alturas:
+        promedio = suma_alturas[parque] / cantidad_arboles[parque]
+        promedios[parque] = promedio
+
+    max_promedio = max(promedios.values())
+
+    parques_maximos = [p for p, prom in promedios.items() if prom == max_promedio]
+
+    return parques_maximos, max_promedio
 
 
+#El/los parques con más variedad de especies
+def parque_mas_variedad(nombre_archivo):
+    conteo = {}
+
+    with open(nombre_archivo, encoding='utf-8') as f:
+        lector = csv.DictReader(f)
+
+        for fila in lector:
+            parque = fila['espacio_ve']
+            especie = fila['nombre_com']
+
+            if parque not in conteo:
+                conteo[parque] = []
+            if especie not in conteo[parque]:
+                conteo[parque].append(especie)
+
+    max_cantidad = 0
+    parques_max = []
+
+    for parque in conteo:
+        cantidad = len(conteo[parque])
+        if cantidad > max_cantidad:
+            max_cantidad = cantidad
+            parques_max = [parque]
+        elif cantidad == max_cantidad:
+            parques_max.append(parque)
+
+    return parques_max, max_cantidad
 
 
+#La especie que más ejemplares tiene en la ciudad.
 
+def especie_mas_comun(nombre_archivo):
+    especies = []
 
+    with open(nombre_archivo, encoding='utf-8') as f:
+        lector = csv.DictReader(f)
 
+        
+        for fila in lector:
+            especie = fila['nombre_com']
+            especies.append(especie)
 
+    max_cantidad = 0
+    especie_mas_frecuente = None
 
+    for especie in especies:
+        cantidad = especies.count(especie)
+        if cantidad > max_cantidad:
+            max_cantidad = cantidad
+            especie_mas_frecuente = especie
 
+    return especie_mas_frecuente, max_cantidad
+
+#La razón entre especies exóticas y autóctonas.
+
+def razon_exoticas_autoctonas(nombre_archivo):
+    exoticas = []
+    autoctonas = []
+
+    with open(nombre_archivo, encoding='utf-8') as f:
+        lector = csv.DictReader(f)
+
+        for fila in lector:
+            especie = fila['nombre_com'].strip().lower()
+            origen = fila['origen'].strip().lower()
+
+            if origen == 'exótica' and especie not in exoticas:
+                exoticas.append(especie)
+            elif origen == 'autóctona' and especie not in autoctonas:
+                autoctonas.append(especie)
+
+    if len(autoctonas) > 0:
+        razon = len(exoticas) / len(autoctonas)
+    else:
+        razon = "No hay especies autóctonas"
+
+    return len(exoticas), len(autoctonas), razon
 
 
 
